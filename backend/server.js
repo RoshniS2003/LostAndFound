@@ -1,27 +1,46 @@
-// backend/server.js
+
 import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import authRoutes from "./routes/auth.js";
 import itemRoutes from "./routes/items.js";
+import dns from "dns";
 
-import dns from "dns"
-
-dns.setServers(["1.1.1.1", "8.8.8.8"])
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
-app.use(cors({ origin: process.env.CLIENT_URL || '*' }));
+
+app.use(cors({ origin: process.env.CLIENT_URL || "*" }));
 app.use(express.json());
 
-app.get('/', (req, res) => res.send('Lost & Found API running'));
-app.use('/api/auth', authRoutes);
-app.use('/api/items', itemRoutes);
+// Home route
+app.get("/", (req, res) => {
+  res.send("Lost & Found API running");
+});
 
+// Health check route for Render
+app.get("/api/health", (req, res) => {
+  res.status(200).json({ status: "Server is running" });
+});
+
+// API routes
+app.use("/api/auth", authRoutes);
+app.use("/api/items", itemRoutes);
+
+// Connect MongoDB and start server
 mongoose
   .connect(process.env.MONGODB_URL)
   .then(() => {
-    console.log('MongoDB connected');
-    app.listen(process.env.PORT || 8000, () => console.log('Server running on port 8000'));
+    console.log("MongoDB connected");
+
+    const PORT = process.env.PORT || 8000;
+
+    app.listen(PORT, () => {
+      console.log(`Server running on port ${PORT}`);
+    });
   })
-  .catch((e) => console.log(e.message));
+  .catch((error) => {
+    console.error("MongoDB connection failed:", error.message);
+    process.exit(1);
+  });
