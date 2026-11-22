@@ -11,6 +11,7 @@ dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 const app = express();
 
+// Middleware
 app.use(cors({ origin: process.env.CLIENT_URL || "*" }));
 app.use(express.json());
 
@@ -34,9 +35,10 @@ mongoose
   .then(() => {
     console.log("MongoDB connected");
 
+    // Render automatically provides PORT
     const PORT = process.env.PORT || 8000;
 
-    app.listen(PORT, () => {
+    app.listen(PORT, "0.0.0.0", () => {
       console.log(`Server running on port ${PORT}`);
     });
   })
