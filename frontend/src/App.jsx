@@ -16,7 +16,7 @@ import Signup from './pages/Signup.jsx';
 import ReportItem from './pages/ReportItem.jsx';
 import ItemDetail from './pages/ItemDetail.jsx';
 import MyItems from './pages/MyItems.jsx';
-import Profile from './pages/profile.jsx';
+import Profile from './pages/Profile.jsx';
 
 export default function App() {
   const [user, setUser] = useState(
