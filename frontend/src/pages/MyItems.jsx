@@ -1,14 +1,19 @@
-// frontend/src/pages/MyItems.jsx
+
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import api from '../api.js';
 import { ItemCard } from './Home.jsx';
 
 export default function MyItems() {
+  const navigate = useNavigate();
+
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/items/mine').then((r) => setItems(r.data)).finally(() => setLoading(false));
+    api.get('/items/mine')
+      .then((r) => setItems(r.data))
+      .finally(() => setLoading(false));
   }, []);
 
   const remove = async (id) => {
@@ -19,7 +24,26 @@ export default function MyItems() {
 
   return (
     <div className="container">
+
+      <button
+        type="button"
+        onClick={() => navigate(-1)}
+        style={{
+          background: 'none',
+          border: 'none',
+          padding: 0,
+          color: '#000000',
+          fontSize: '16px',
+          fontWeight: '400',
+          cursor: 'pointer',
+          marginBottom: '20px'
+        }}
+      >
+        ← Back
+      </button>
+
       <h2 className="section-title">My Items</h2>
+
       {loading ? (
         <p className="empty">Loading...</p>
       ) : items.length === 0 ? (

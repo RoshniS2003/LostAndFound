@@ -118,7 +118,7 @@ router.get(
   auth,
   wrap(async (req, res) => {
     const item = await Item.findById(req.params.id)
-      .populate("user", "name email");
+      .populate("user", "name email phone");
 
     if (!item) {
       return res.status(404).json({

@@ -1,81 +1,192 @@
-<!-- README.md -->
-# Lost & Found Network
+# Lost & Found Management System
+
+## Subject Details
+
+- **Subject Name:** Backend Development using Node.js
+- **Subject Code:** RU-600-05-00086
+- **Project Name:** Lost & Found Management System
+
+## Team Members
+
+- Roshni Sahu
+
 
 ## Project Description
-A campus-based web app where students report lost and found items and get connected with each other, without using WhatsApp groups.
 
-## Target Users
-1. College Students - lose ID cards, wallets, notes, earphones
-2. College Admin / Security - collect found items
-3. Faculty - verify and approve items
+The Lost & Found Management System is a web-based application designed to help students and faculty report, find, and manage lost and found items within an institution.
 
-## Tech Stack
-- Frontend: React + Vite + Plain CSS
-- Backend: Node.js + Express
-- Database: MongoDB Atlas (Mongoose)
-- Others: JWT Auth, Multer + Cloudinary (photos), Fuse.js (matching)
+Users can submit lost or found item reports with relevant details and images. The administrator can review reports, approve found item submissions, and help manage the verification process.
 
-## Key Features
-1. Signup / Login with JWT (roles: student, faculty, admin)
-2. Report Lost Item and Found Item (title, category, description, photo, location, date)
-3. Home page with cards, search, and Lost/Found/Category filters
-4. Item detail page with Possible Matches
-5. My Items page with delete
-6. Admin / Faculty can approve items (isApproved true/false)
+The main objective of this project is to make the lost and found process more organized, accessible, and efficient.
 
-## Innovation Highlight
-AI-Powered Smart Matching: when a student reports a Lost item, the system compares its title + description with all Found items using Fuse.js and shows ranked "Possible Matches" with a match percentage. The reverse also works for Found items. No more scrolling the full list.
+## Features
 
-## Run Locally
+- User registration and login
+- Role-based access for students, faculty, and administrators
+- Report lost items with details and images
+- Report found items with details and images
+- Browse available lost and found reports
+- View item details
+- Admin dashboard for managing reports
+- Admin approval of found item reports
+- Item status management
+- Image upload and storage using Cloudinary
+- Secure authentication using JWT
 
-Requirements: Node.js 18+, a MongoDB Atlas cluster, a Cloudinary account.
+## Technology Stack
 
-Backend:
+### Frontend
+- React.js
+- Vite
+- JavaScript
+- CSS
+- Axios
+- React Router
+
+### Backend
+- Node.js
+- Express.js
+- JavaScript
+- MongoDB
+- Mongoose
+- JWT Authentication
+
+### Image Storage
+- Cloudinary
+
+### Deployment
+- Frontend: Vercel
+- Backend: Render
+- Database: MongoDB Atlas
+
+## Project Structure
+
+```text
+LostAndFound/
+│
+├── frontend/
+│   ├── src/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.js
+│
+├── backend/
+│   ├── routes/
+│   ├── models/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── server.js
+│   └── package.json
+│
+├── .gitignore
+└── README.md
+```
+
+## Installation and Setup
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/RoshniS2003/LostAndFound.git
+```
+
+```bash
+cd LostAndFound
+```
+
+### 2. Backend Setup
+
+Open the backend folder:
+
 ```bash
 cd backend
-npm install
-cp .env.example .env
-npm run dev
 ```
-Fill `.env` with your MongoDB URI, JWT secret, staff code and Cloudinary keys.
 
-Frontend (new terminal):
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file inside the backend folder and configure the required environment variables.
+
+Example:
+
+```env
+PORT=8000
+MONGODB_URL=your_mongodb_connection_string
+CLIENT_URL=http://localhost:5173
+
+ACCESS_TOKEN_SECRET=your_access_token_secret
+ACCESS_TOKEN_EXPIRY=1d
+
+REFRESH_TOKEN_SECRET=your_refresh_token_secret
+REFRESH_TOKEN_EXPIRY=10d
+
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+
+STAFF_CODE=your_staff_code
+```
+
+Start the backend server:
+
+```bash
+npm start
+```
+
+### 3. Frontend Setup
+
+Open a new terminal and navigate to the frontend folder:
+
 ```bash
 cd frontend
+```
+
+Install dependencies:
+
+```bash
 npm install
+```
+
+Create a `.env` file inside the frontend folder:
+
+```env
+VITE_API_URL=http://localhost:8000/api
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
-Open http://localhost:5173
 
-Faculty/Admin signup needs the `STAFF_CODE` value from `backend/.env`.
+The application will run locally at:
 
-## Deploy
-
-Push the project to GitHub:
-```bash
-git init
-git add .
-git commit -m "Lost and Found Network"
-git branch -M main
-git remote add origin https://github.com/<your-username>/lost-found-network.git
-git push -u origin main
+```text
+http://localhost:5173
 ```
 
-MongoDB Atlas: Network Access -> Add IP Address -> Allow access from anywhere (0.0.0.0/0).
+**Note:** Use the actual environment variable names required by the source code. Never upload real passwords, API keys, database URLs, or secret keys to GitHub.
 
-Backend on Render:
-1. New -> Web Service -> connect your GitHub repo
-2. Root Directory: `backend`
-3. Build Command: `npm install`
-4. Start Command: `npm start`
-5. Add environment variables: `MONGO_URI`, `JWT_SECRET`, `STAFF_CODE`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`
-6. Deploy and copy the URL, e.g. `https://lostfound-api.onrender.com`
+## Live Deployment
 
-Frontend on Vercel:
-1. Add New -> Project -> import the same repo
-2. Root Directory: `frontend`
-3. Framework Preset: Vite
-4. Environment variable: `VITE_API_URL` = `https://lostfound-api.onrender.com/api`
-5. Deploy and copy the URL, e.g. `https://lostfound.vercel.app`
+- **Frontend Website:** https://lost-and-found-two-zeta.vercel.app
+- **Backend API:** https://lostandfound-api-plxg.onrender.com
+- **Backend Health Check:** https://lostandfound-api-plxg.onrender.com/api/health
 
-Final step: in Render, add `CLIENT_URL` = your Vercel URL (no trailing slash) and redeploy the backend.
+## GitHub Repository
+
+https://github.com/RoshniS2003/LostAndFound
+
+## Security
+
+- Environment variables are used to store sensitive credentials.
+- The `.env` file should not be committed to GitHub.
+- Authentication is implemented using JWT.
+- Passwords are handled securely by the backend.
+
+## Conclusion
+
+The Lost & Found Management System provides a centralized platform for reporting and managing lost and found items within an institution. It reduces the manual effort involved in managing item reports and helps administrators organize the verification process.
